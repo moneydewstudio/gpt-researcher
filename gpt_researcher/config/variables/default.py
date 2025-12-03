@@ -2,7 +2,7 @@ from .base import BaseConfig
 
 DEFAULT_CONFIG: BaseConfig = {
     "RETRIEVER": "tavily",
-    "EMBEDDING": "google_genai:text-embedding-005",
+    "EMBEDDING": "google_genai:models/text-multilingual-embedding-002",
     "SIMILARITY_THRESHOLD": 0.42,
     "FAST_LLM": "mistralai:mistral-large-2512",
     "SMART_LLM": "mistralai:mistral-large-2512",
