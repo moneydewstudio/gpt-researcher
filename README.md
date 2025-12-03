@@ -95,14 +95,9 @@ See the [Documentation](https://docs.gptr.dev/docs/gpt-researcher/getting-starte
 3. Set up API keys by exporting them or storing them in a `.env` file.
 
     ```bash
-    export OPENAI_API_KEY={Your OpenAI API Key here}
+    export MISTRAL_API_KEY={Your Mistral API Key here}
+    export GOOGLE_API_KEY={Your Google API Key here}
     export TAVILY_API_KEY={Your Tavily API Key here}
-    ```
-
-    For custom OpenAI-compatible APIs (e.g., local models, other providers), you can also set:
-    
-    ```bash
-    export OPENAI_BASE_URL={Your custom API base URL here}
     ```
 
 4. Install dependencies and start the server:

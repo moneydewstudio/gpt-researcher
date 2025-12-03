@@ -44,6 +44,8 @@ tiktoken = ">=0.7.0"
 unstructured = ">=0.13"
 uvicorn = ">=0.24.0.post1"
 websockets = "^13.1"
+langchain-mistralai = "^0.0.6"
+langchain-google-genai = "^0.0.9"
 # Model Context Protocol support
 mcp = { version = ">=1.0.0", markers = "platform_system != 'Windows'" }
 langchain-mcp-adapters = ">=0.1.0"
@@ -212,6 +214,8 @@ dependencies = [
     "zipp>=3.21.0",
     "zopfli>=0.2.3.post1",
     "zstandard>=0.23.0",
+    "langchain-mistralai>=0.0.6",
+    "langchain-google-genai>=0.0.9",
 ]
 
 [project.optional-dependencies]
