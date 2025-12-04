@@ -16,13 +16,14 @@ def main():
     query = st.text_input("Enter your research query:", 
                           placeholder="e.g., What are the latest trends in artificial intelligence?")
 
-    report_type = st.selectbox("Select report type:", 
-                               ["research_report", "resource_report", "outline_report", "custom_report", "subtopic_report"])
+    report_type = st.selectbox("Select report type:",
+                               ["research_report", "resource_report", "outline_report", "custom_report",
+                                "subtopic_report", "variable_report"])
 
     if st.button("Research"):
         if query:
             st.write(f"Conducting research for: {query}")
-            
+
             async def research():
                 custom_prompt = """
                 **Research Topic:** The definition of a particular term in the scope of social science.
@@ -47,9 +48,28 @@ def main():
                 6.  **References:**
                     *   Provide a list of all cited sources in APA style.
                 """
-                
+
+                variable_report_prompt = f"""
+**Research Task:** Generate a detailed research report for the variable: **"{query}"**.
+
+**Objective:** To provide a comprehensive overview of the variable, including its definitions, theoretical background, indicators, related research, and references in APA style.
+
+**Report Structure:** You MUST follow this exact markdown format:
+
+# {query}
+## Definitions and theories of {query}
+### Indicators of {query}
+## Researches on {query}
+### Scales and Measurements of {query}
+### Future research for {query}
+## References for {query}
+"""
                 if report_type == "custom_report":
-                    researcher = GPTResearcher(query=query, report_type=report_type, config_path=None, source_urls=None, custom_prompt=custom_prompt)
+                    researcher = GPTResearcher(query=query, report_type=report_type, config_path=None,
+                                               source_urls=None, custom_prompt=custom_prompt)
+                elif report_type == "variable_report":
+                    researcher = GPTResearcher(query=query, report_type="custom_report", config_path=None,
+                                               source_urls=None, custom_prompt=variable_report_prompt)
                 else:
                     researcher = GPTResearcher(query=query, report_type=report_type)
                 
