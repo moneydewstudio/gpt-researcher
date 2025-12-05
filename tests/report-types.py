@@ -7,7 +7,7 @@ from backend.server.server_utils import CustomLogsHandler
 from typing import List, Dict, Any
 
 # Define the report types to test
-report_types = ["research_report", "subtopic_report"]
+report_types = ["research_report", "subtopic_report", "variable_report"]
 
 # Define a common query and sources for testing
 query = "what is gpt-researcher"
@@ -41,6 +41,14 @@ async def test_gpt_researcher(report_type):
         url for url in researcher.visited_urls if url.startswith("https://github.com")
     ]
     assert len(matching_urls) > 0
+
+    if report_type == "variable_report":
+        assert "Introduction" in report
+        assert "Definition" in report
+        assert "Indicators" in report
+        assert "Related Research" in report
+        assert "Conclusion" in report
+        assert "References" in report
 
 
 if __name__ == "__main__":

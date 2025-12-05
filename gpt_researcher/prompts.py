@@ -144,6 +144,10 @@ Please conduct thorough research and provide your findings. Use the tools strate
         else:
             task = question
 
+        if report_type == ReportType.VariableReport.value:
+            current_year = datetime.now().year
+            task = f"{task} after:{current_year - 10} filetype:pdf OR site:.edu OR intext:\"peer-reviewed\""
+
         context_prompt = f"""
 You are a seasoned research assistant tasked with generating search queries to find relevant information for the following task: "{task}".
 Context: {context}
@@ -389,6 +393,84 @@ Additional requirements:
 
 Please write a thorough, well-researched report that synthesizes all the gathered information into a cohesive whole.
 Assume the current date is {datetime.now(timezone.utc).strftime('%B %d, %Y')}.
+"""
+    @staticmethod
+    def generate_variable_report_prompt(
+        question: str,
+        context: str,
+        report_source: str,
+        report_format="apa",
+        tone=None,
+        total_words=2000,
+        language: str = "english"
+    ):
+        """Generates the variable report prompt, specialized for handling hierarchical research results.
+        Args:
+            question (str): The research question
+            context (str): The research context containing learnings with citations
+            report_source (str): Source of the research (web, etc.)
+            report_format (str): Report formatting style
+            tone: The tone to use in writing
+            total_words (int): Minimum word count
+            language (str): Output language
+        Returns:
+            str: The variable report prompt
+        """
+        reference_prompt = ""
+        if report_source == ReportSource.Web.value:
+            reference_prompt = f"""
+You MUST write all used source urls at the end of the report as references, and make sure to not add duplicated sources, but only one reference for each.
+Every url should be hyperlinked: [url website](url)
+Additionally, you MUST include hyperlinks to the relevant URLs wherever they are referenced in the report:
+
+eg: Author, A. A. (Year, Month Date). Title of web page. Website Name. [url website](url)
+"""
+        else:
+            reference_prompt = f"""
+You MUST write all used source document names at the end of the report as references, and make sure to not add duplicated sources, but only one reference for each."
+"""
+
+        tone_prompt = f"Write the report in a {tone.value} tone." if tone else ""
+
+        return f"""
+Information: "{context}"
+---
+Using the above information, answer the following query or task: "{question}" in a detailed report --
+The report should focus on the answer to the query, should be well structured, informative,
+in-depth, and comprehensive, with facts and numbers if available and at least {total_words} words.
+
+Please follow all of the following guidelines in your report:
+- You MUST determine your own concrete and valid opinion based on the given information. Do NOT defer to general and meaningless conclusions.
+- You MUST write the report with markdown syntax and {report_format} format.
+- Structure your report with clear markdown headers: use # for the main title, ## for major sections, and ### for subsections.
+- Use markdown tables when presenting structured data or comparisons to enhance readability.
+- You MUST prioritize the relevance, reliability, and significance of the sources you use. Choose trusted sources over less reliable ones.
+- You must also prioritize new articles over older articles if the source can be trusted.
+- You MUST NOT include a table of contents, but DO include proper markdown headers (# ## ###) to structure your report clearly.
+- Use in-text citation references in {report_format} format and make it with markdown hyperlink placed at the end of the sentence or paragraph that references them like this: ([in-text citation](url)).
+- Don't forget to add a reference list at the end of the report in {report_format} format and full url links without hyperlinks.
+- {reference_prompt}
+- {tone_prompt}
+
+You MUST write the report in the following language: {language}.
+Please do your best, this is very important to my career.
+Assume that the current date is {date.today()}.
+
+**Report Structure:**
+1.  **Introduction:**
+    *   Define the term and its significance in social science.
+2.  **Definition:**
+    *   Provide definitions of the term based on theories and researchers.
+3.  **Indicators:**
+    *   Identify and describe the key indicators used to measure or identify the term.
+4.  **Related Research:**
+    *   Summarize key research findings related to the term in the past 10 years.
+    *   Discuss any debates or controversies in the literature.
+5.  **Conclusion:**
+    *   Summarize the main points of the report.
+    *   Suggest areas for future research.
+6.  **References:**
+    *   Provide a list of all cited sources in APA style.
 """
 
     @staticmethod
@@ -738,6 +820,7 @@ report_type_mapping = {
     ReportType.CustomReport.value: "generate_custom_report_prompt",
     ReportType.SubtopicReport.value: "generate_subtopic_report_prompt",
     ReportType.DeepResearch.value: "generate_deep_research_prompt",
+    ReportType.VariableReport.value: "generate_variable_report_prompt",
 }
 
 
