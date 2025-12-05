@@ -25,21 +25,19 @@ def main():
             
             async def research():
                 custom_prompt = """
-                **Research Topic:** The definition of a particular term in the scope of social science.
+                **Research Topic:** The definition of a particular term in the scope of social science, sourced only using peer reviewed papers.
 
-                **Objective:** To provide a comprehensive overview of the term, including its indicators, related research, and APA style references.
+                **Objective:** To provide a comprehensive overview of the term, including its definitions, theories, indicators, measurements, related research, and APA style references.
 
                 **Report Structure:**
                 1.  **Introduction:**
-                    *   Briefly introduce the term and its significance in social science.
+                    *   Define the term and its significance in social science.
                 2.  **Definition:**
-                    *   Provide a clear and concise definition of the term.
-                    *   Discuss any alternative or contested definitions.
+                    *   Provide definitions of the term based on theories and researchers.
                 3.  **Indicators:**
                     *   Identify and describe the key indicators used to measure or identify the term.
-                    *   Provide examples of how these indicators are used in research.
                 4.  **Related Research:**
-                    *   Summarize key research findings related to the term.
+                    *   Summarize key research findings related to the term in the past 10 years.
                     *   Discuss any debates or controversies in the literature.
                 5.  **Conclusion:**
                     *   Summarize the main points of the report.
