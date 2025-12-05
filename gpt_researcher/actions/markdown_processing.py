@@ -91,6 +91,26 @@ def table_of_contents(markdown_text: str) -> str:
         print("table_of_contents Exception : ", e)
         return markdown_text
 
+import metadata_parser
+
+def _format_citation(metadata: dict) -> str:
+    """
+    Format a citation in APA style.
+
+    Args:
+        metadata (dict): A dictionary containing the metadata for a URL.
+
+    Returns:
+        str: A formatted citation string.
+    """
+    authors = metadata.get("author", "N.A.")
+    title = metadata.get("title", "N.A.")
+    url = metadata.get("url", "N.A.")
+    date = metadata.get("published", "n.d.")
+
+    return f"{authors}. ({date}). *{title}*. Retrieved from [{url}]({url})\n"
+
+
 def add_references(report_markdown: str, visited_urls: set) -> str:
     """
     Add references to the markdown report.
@@ -104,7 +124,14 @@ def add_references(report_markdown: str, visited_urls: set) -> str:
     """
     try:
         url_markdown = "\n\n\n## References\n\n"
-        url_markdown += "".join(f"- [{url}]({url})\n" for url in visited_urls)
+        for url in visited_urls:
+            try:
+                page = metadata_parser.MetadataParser(url=url, search_head_only=True)
+                metadata = page.metadata
+                url_markdown += f"- {_format_citation(metadata)}\n"
+            except Exception:
+                url_markdown += f"- [{url}]({url})\n"
+
         updated_markdown_report = report_markdown + url_markdown
         return updated_markdown_report
     except Exception as e:
