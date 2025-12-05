@@ -66,4 +66,7 @@ python-multipart>=0.0.6
 json-repair>=0.29.8
 json5>=0.9.25
 markdown>=3.5.1
+google-api-python-client>=2.138.0
+streamlit>=1.32.0
+google-auth-oauthlib>=0.7.0
 
