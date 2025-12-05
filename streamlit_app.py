@@ -17,7 +17,7 @@ def main():
                           placeholder="e.g., What are the latest trends in artificial intelligence?")
 
     report_type = st.selectbox("Select report type:", 
-                               ["research_report", "resource_report", "outline_report", "custom_report", "subtopic_report", "deep", "variable_report"])
+                               ["research_report", "resource_report", "outline_report", "custom_report", "subtopic_report"])
 
     if st.button("Research"):
         if query:
@@ -45,12 +45,12 @@ def main():
                 6.  **References:**
                     *   Provide a list of all cited sources in APA style.
                 """
-
+                
                 if report_type == "custom_report":
                     researcher = GPTResearcher(query=query, report_type=report_type, config_path=None, source_urls=None, custom_prompt=custom_prompt)
                 else:
                     researcher = GPTResearcher(query=query, report_type=report_type)
-
+                
                 research_result = await researcher.conduct_research()
                 report = await researcher.write_report()
                 return report
