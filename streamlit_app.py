@@ -4,11 +4,18 @@ from dotenv import load_dotenv
 from gpt_researcher import GPTResearcher
 import asyncio
 import nest_asyncio
+import re
 
 nest_asyncio.apply()
 load_dotenv()
 
+
 def main():
+
+    def sanitize_filename(query):
+        """Sanitizes the query to be a valid filename."""
+        return re.sub(r'[\s\W]+', '_', query)
+
     st.set_page_config(page_title="GPT Researcher", page_icon="🔎")
     st.title("GPT Researcher")
     st.markdown("This app allows you to conduct research using the GPT Researcher library.")
@@ -56,6 +63,11 @@ def main():
                 return report
             
             report = asyncio.run(research())
+            st.download_button(
+                label="Download",
+                data=report,
+                file_name=f"{sanitize_filename(query)}.md",
+            )
             st.markdown(report)
         else:
             st.warning("Please enter a research query.")
