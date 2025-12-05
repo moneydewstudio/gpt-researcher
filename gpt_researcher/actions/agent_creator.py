@@ -52,6 +52,12 @@ async def choose_agent(
 
 
 async def handle_json_error(response):
+    if response is None:
+        print("⚠️ LLM Response is None, falling back to default agent.")
+        return "Default Agent", (
+            "You are an AI critical thinker research assistant. Your sole purpose is to write well written, "
+            "critically acclaimed, objective and structured reports on given text."
+        )
     try:
         agent_dict = json_repair.loads(response)
         if agent_dict.get("server") and agent_dict.get("agent_role_prompt"):

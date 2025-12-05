@@ -115,6 +115,7 @@ class GPTResearcher:
                 - "disabled": Skip MCP entirely, use only web retrievers
         """
         self.kwargs = kwargs
+        self.custom_prompt = self.kwargs.pop("custom_prompt", None)
         self.query = query
         self.report_type = report_type
         self.cfg = Config(config_path)
@@ -380,7 +381,7 @@ class GPTResearcher:
             existing_headers=existing_headers,
             relevant_written_contents=relevant_written_contents,
             ext_context=ext_context or self.context,
-            custom_prompt=custom_prompt
+            custom_prompt=self.custom_prompt if self.custom_prompt else custom_prompt
         )
 
         await self._log_event("research", step="report_completed", details={
