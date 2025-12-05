@@ -2,6 +2,8 @@
 .env
 .venv
 .envrc
+client_secrets.json
+token.json
 
 #Ignore Virtual Env
 env/
