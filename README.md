@@ -111,27 +111,6 @@ Visit [http://localhost:8000](http://localhost:8000) to start.
 
 For other setups (e.g., Poetry or virtual environments), check the [Getting Started page](https://docs.gptr.dev/docs/gpt-researcher/getting-started).
 
-## Google Drive Integration (Streamlit App)
-
-The Streamlit app can automatically upload generated reports to your Google Drive. To enable this feature, you need to set up Google Drive API access and create a `credentials.json` file.
-
-### Creating `credentials.json`
-
-1.  **Go to the Google Cloud Console:** [https://console.cloud.google.com/](https://console.cloud.google.com/)
-2.  **Create a new project:** If you don't have one already, create a new project.
-3.  **Enable the Google Drive API:**
-    *   In the navigation menu, go to **APIs & Services > Library**.
-    *   Search for "Google Drive API" and enable it.
-4.  **Create credentials:**
-    *   In the navigation menu, go to **APIs & Services > Credentials**.
-    *   Click **+ CREATE CREDENTIALS** and select **OAuth client ID**.
-    *   If prompted, configure the OAuth consent screen. Select **External** and provide an app name, user support email, and developer contact information. You can skip the other fields for now.
-    *   For the application type, select **Desktop app**.
-    *   Give the client ID a name and click **Create**.
-5.  **Download the credentials:**
-    *   Click the download icon next to the newly created OAuth client ID.
-    *   Rename the downloaded file to `credentials.json` and place it in the root directory of the project.
-
 ## Run as PIP package
 ```bash
 pip install gpt-researcher
