@@ -2,7 +2,6 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 from gpt_researcher import GPTResearcher
-from gpt_researcher.utils.file_manager import sanitize_filename
 import asyncio
 import nest_asyncio
 import re
