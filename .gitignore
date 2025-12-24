@@ -54,3 +54,5 @@ server_log.txt
 .cursorrules
 CURSOR_RULES.md
 /.history
+credentials.json
+token.json
